@@ -17,9 +17,9 @@ A medical imaging report analysis system based on Ollama's local large language 
 We use the MIMIC-CXR dataset.To handle Chinese reports, add encoding='gbk' when specifying the input report path.  
 You can prepare medical report data in CSV format.  
 The file should include the following fields:  
-  ## study_id: Study identifier  
-  ## id: Case ID  
-  ## report: Imaging report text  
+  study_id: Study identifier  
+  id: Case ID  
+  report: Imaging report text  
 ## Example Structure:  
 ```csv
 study_id,id,report
