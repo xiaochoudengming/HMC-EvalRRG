@@ -22,13 +22,13 @@ The file should include the following fields:
   study_id: Study identifier  
   id: Case ID  
   report: Imaging report text  
-## Example Structure:  
+#### Example input Structure:  
 ```csv
 study_id,id,report
 1001,1,"PA view shows right middle lobe consolidation..."
 ```
 
-# Configuration Instructions:  
+## Configuration Instructions:  
 Modify the parameters of the model_predict() function:  
 ```python
 client = OpenAI(
@@ -38,12 +38,12 @@ client = OpenAI(
 )
 ```
 
-# Output Results：  
+## Output Results：  
 The output file qwen.csv includes:  
   Original report identifier  
   Model response in JSON format  
   Prediction results for each pathological label (0/1)  
-## Example:  
+### Example:  
 ```csv
 study_id,id,content,Atelectasis,Cardiomegaly,...
 1001,1,"{'Atelectasis': '0',...}",0,1,...,0
