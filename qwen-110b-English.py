@@ -539,7 +539,7 @@ Single numeric character (0/1) with no punctuation or explanations."""
     return data_dict, content
 
 def main(start_index=0):
-    csv_file = '/mnt/mimic-cxr/tb_mimic_cxr_metadata.csv'
+    csv_file = './data/tb_mimic_cxr_metadata.csv'
     df = pd.read_csv(csv_file)
 
     fields = ['study_id', 'id', 'content', 'Atelectasis', 'Cardiomegaly', 'Consolidation', 'Edema',
