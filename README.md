@@ -12,9 +12,9 @@ Features：
 Prerequisites：
 Python 3.8+
 Ollama service (running locally)
-ollama pull qwen:110b
 Install required libraries:
-pip install -r requirements.txt
+
+```pip install -r requirements.txt```
 
 Data Preparation
 We use the MIMIC-CXR dataset.To handle Chinese reports, add encoding='gbk' when specifying the input report path.
@@ -33,9 +33,9 @@ Configuration Instructions:
 Modify the parameters of the model_predict() function:
 ```python
 client = OpenAI(
-    base_url='http://localhost:11434/v1',  # Ollama API端点
-    api_key='ollama',                      # 认证密钥
-    timeout=30                              # 超时设置
+    base_url='http://localhost:11434/v1',  
+    api_key='ollama',                      
+    timeout=30                             
 )
 ```
 
