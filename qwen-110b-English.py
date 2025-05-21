@@ -6,12 +6,11 @@ import argparse
 from openai import OpenAI
 import re
 client = OpenAI(
-    base_url='http://localhost:11434/v1',  # 注意去掉了末尾斜杠
+    base_url='http://localhost:11434/v1', 
     api_key='ollama',
 )
-# 设置你的 OpenAI API 密钥
 def model_predict(report):
-    # 定义需要检测的标签及其对应的 prompt 模板
+    # Define the tags that need to be detected and their corresponding prompt templates
     prompt_templates = {
         "Atelectasis": """Your task is to identify and label the presence of Atelectasis in the given text reports.
 Lung Fields:
@@ -162,7 +161,7 @@ Non-specific findings requiring further evaluation (e.g., undiagnosed infiltrate
 
 
 """,
-        "No Finding": None,  # No Finding 的 prompt 可以单独处理
+        "No Finding": None,  # The prompt for 'No Finding' can be handled separately.
         "Pleural Effusion": """Analyze the following radiology report to check if the condition 'Pleural Effusion' is present.Your task is to identify and label the absence of Pleural Effusion in the given text reports. Consider the following aspects.Check if the report mentions the location of the effusion.Look for descriptions of the size of the effusion.Identify any specific characteristics of the effusion and consider any associated findings mentioned in the report.
 Example:
 Location :
@@ -497,11 +496,11 @@ Output **0** if:
     }
 
 
-    data_dict = {key: 0 for key in prompt_templates.keys()}  # 初始化所有标签为 0
-    content = {}  # 用于存储每个标签的响应内容
+    data_dict = {key: 0 for key in prompt_templates.keys()}  # Initialize all labels to 0.
+    content = {}  # Used to store the response content for each labels
 
     for key in prompt_templates:
-        if key != "No Finding":  # 跳过 No Finding 标签
+        if key != "No Finding": 
             prompt_template = prompt_templates[key]
             prompt= f"""Medical Imaging Report Analysis Task:
 [Target Condition] {key}
@@ -516,7 +515,6 @@ Please perform the following:
 Response Format:
 Single numeric character (0/1) with no punctuation or explanations."""
 
-            # 与模型交互，获取检测结果
             response = client.chat.completions.create(
                 model="qwen:110b",
                 messages=[{'role': 'system', 'content': 'You are a radiologist analyzing medical reports.'},
@@ -524,19 +522,16 @@ Single numeric character (0/1) with no punctuation or explanations."""
             )
 
 
-            # 提取模型的输出内容
+            # Extract the output content from the model.
             detection_result = response.choices[0].message.content.strip()
-            content[key] = detection_result  # 保存每个标签的响应内容
+            content[key] = detection_result  # Save the response content for each label.
 
-            # 使用正则表达式匹配 '1' 或 '0'
             match = re.search(r'(1|0)', detection_result)
             if match:
-                # 将检测结果更新到 data_dict
                 data_dict[key] = int(match.group(1))
             else:
-                # 如果没有匹配到，设置为 0
                 data_dict[key] = 0
-#     最后检查 No Finding 的值
+#check the value of 'No Finding'.
     if all(value == 0 for key, value in data_dict.items() if key != "No Finding"):
         data_dict["No Finding"] = 1
     else:
@@ -557,7 +552,6 @@ def main(start_index=0):
     output_file = 'qwen.csv'
     status_file = 'last_processed_index.txt'
 
-    # 检查是否需要写表头
     write_header = not os.path.exists(output_file) or os.path.getsize(output_file) == 0
 
     with open(output_file, mode='a', newline='') as file:
@@ -565,7 +559,6 @@ def main(start_index=0):
         if write_header:
             writer.writeheader()
 
-    # 主处理循环
     for i in range(start_index, len(df)):
         row = df.iloc[i]
         try:
@@ -586,7 +579,7 @@ def main(start_index=0):
                     row_data[field] = prediction.get(field, 0)
                 writer.writerow(row_data)
 
-            # 更新处理进度
+            # Update the processing progress.
             with open(status_file, 'w') as f:
                 f.write(str(i))
 
@@ -598,13 +591,13 @@ def main(start_index=0):
                 f.write(f"Row {i} error: {str(e)}\n")
 
 if __name__ == '__main__':
-    # 设置命令行参数
+    # Set the command-line parameters.
     parser = argparse.ArgumentParser()
     parser.add_argument('--start', type=int, default=0,
                        help='Start processing from this index (0-based)')
     args = parser.parse_args()
 
-    # 尝试从上次的进度恢复
+    # Attempt to resume from the last progress
     status_file = 'last_processed_index.txt'
     if os.path.exists(status_file):
         with open(status_file, 'r') as f:
@@ -616,6 +609,5 @@ if __name__ == '__main__':
             except:
                 pass
 
-    # 运行主程序
+    # Run the  program.
     main(start_index=args.start)
-    print("预测结果已逐条写入 qwen.csv")
