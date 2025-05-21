@@ -14,7 +14,7 @@ A medical imaging report analysis system based on Ollama's local large language 
   Install required libraries:  
 ```pip install -r requirements.txt```
 # Data Preparation：  
-We use the MIMIC-CXR dataset.To handle Chinese reports, add encoding='gbk' when specifying the input report path.  
+We use the [MIMIC-CXR dataset](https://physionet.org/content/mimic-cxr/2.1.0/).To handle Chinese reports, add encoding='gbk' when specifying the input report path.  
 You can prepare medical report data in CSV format.  
 The file should include the following fields:  
   study_id: Study identifier  
