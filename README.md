@@ -1,13 +1,12 @@
 # HMC-EvalRRG
-《Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation》
-
+Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation《Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation》
 A medical imaging report analysis system based on Ollama's local large language model, automatically detecting 21 chest X-ray pathologies.
-
 Features：
 1.Supports prediction of over 21 types of chest disease tags, such as atelectasis, cardiomegaly, pneumonia, etc.
 2.Deployed using the Ollama local large language model.
 3.Includes features for resuming from breakpoints and automatic error logging.
 4.Outputs results in CSV format
+![image](https://github.com/user-attachments/assets/f5dd976f-f4dc-47d5-9211-b51c3d44ce8a)
 
 Prerequisites：
 Python 3.8+
