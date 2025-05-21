@@ -1,20 +1,22 @@
 #  HMC-EvalRRG
-__Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation《Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation》__  
-A medical imaging report analysis system based on Ollama's local large language model, automatically detecting 21 chest X-ray pathologies.  
-#  Features：  
+__《Boosting Clinical Value in Radiology Report Generation: An new Evaluation Framework by Human-Machine cooperation》__  
+# Introduction： 
+We hypothesize that a Human-Machine Collaborative Framework integrating hierarchical clinical validity assessment and dynamic radiologist reasoning will achieve ≥95% diagnostic accuracy in AI-generated reports, surpassing conventional NLP benchmarks.To address these gaps, we propose a Human-Machine framework with two key innovations: (1) A structured evaluation framework that quantifies clinical validity through hierarchical assessment of entity matching, negation recognition, and diagnostic logic consistency, building on knowledge-enhanced architectures. (2) An iterative Human-Machin cooperation optimization process inspired by dynamic prompting techniques, integrating radiologists’ reasoning into prompt engineering, enabling systematic refinement of AI models to achieve ≥95% diagnostic accuracy (validated against expert annotations), this approach addresses terminology inconsistencies and data scarcity through knowledge-aware training. This study aims to validate the superiority of hierarchical clinical validity metrics over conventional NLP benchmarks and demonstrate non-inferiority of AI-generated reports to board-certified radiologists through radiologist-guided optimization. 
+## Feature:
 1.Supports prediction of over 21 types of chest disease tags, such as atelectasis, cardiomegaly, pneumonia, etc.  
 2.Deployed using the Ollama local large language model.  
 3.Includes features for resuming from breakpoints and automatic error logging.  
-4.Outputs results in CSV format  
+4.Outputs results in CSV format 
+  
 ![image](https://github.com/user-attachments/assets/f5dd976f-f4dc-47d5-9211-b51c3d44ce8a)
 
-#  Prerequisites：  
-  Python 3.8+  
-  Ollama service (running locally)  
-  Install required libraries:  
-```pip install -r requirements.txt```
-# Data Preparation：  
-We use the [MIMIC-CXR dataset](https://physionet.org/content/mimic-cxr/2.1.0/).To handle Chinese reports, add encoding='gbk' when specifying the input report path.  
+#  Getting Started:  
+## Installation
+### 1. Prepare the code and the environment
+    cd HMC-EvalRRG
+    pip install -r requirements.txt
+### 2. Prepare the training dataset
+We use the [MIMIC-CXR dataset](https://physionet.org/content/mimic-cxr/2.1.0/).To handle Chinese reports, add encoding='gbk' when specifying the input report path.After downloading the data, place it in the ./data folder.
 You can prepare medical report data in CSV format.  
 The file should include the following fields:  
   study_id: Study identifier  
